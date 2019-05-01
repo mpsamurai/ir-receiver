@@ -38,6 +38,7 @@ class Mediator:
         self.__redis_boundary.set_state('ready');
         if cancelled:
             self.__redis_boundary.publish_stopped_ir_saving_stop_message()
+            return
         tmp_file_path = '{0}/{1}'.format(IR_FOLDER_PATH, TMP_FILE_NAME)
         self.__filesystem.save_temp_file(tmp_file_path, signals)
         logger.debug('Signals saved to tmp file {0}'.format(tmp_file_path))
