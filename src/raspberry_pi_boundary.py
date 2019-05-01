@@ -218,7 +218,8 @@ class RespberryPiBoundary:
         self.pi.set_glitch_filter(GPIO, 0) # Cancel glitch filter.
         self.pi.set_watchdog(GPIO, 0) # Cancel watchdog.
         record = {'0': code}
-        self.tidy(record)
+        if not cancelled:
+            self.tidy(record)
         callback(record, cancelled)
         
     def stop_capturing_remote_signal(self):
