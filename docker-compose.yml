@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  ir-receiver:
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    volumes:
+      - ./src:/code/src
+      - ./test:/code/test
+      - ./data:/data
+    network_mode: "host"
+    depends_on:
+      - redis
