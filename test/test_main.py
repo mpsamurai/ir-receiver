@@ -29,7 +29,7 @@ import redis_boundary
 import filesystem
 import mediator
 
-IR_FOLDER_PATH = '/code'
+IR_FOLDER_PATH = '/data'
 TMP_FILE_NAME = 'tmp.ir'
 
 logger = logging.getLogger(__name__)

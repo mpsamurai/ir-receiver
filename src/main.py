@@ -5,7 +5,7 @@ import raspberry_pi_boundary
 import mediator
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='ir_receiver.log', level=logging.DEBUG)
+    logging.basicConfig(filename='logs/ir_receiver.log', level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     
         #各種コンポーネントの初期化

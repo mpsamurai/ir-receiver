@@ -1,7 +1,7 @@
 import logging
 
 logger = logging.getLogger(__name__)
-IR_FOLDER_PATH = '/code'
+IR_FOLDER_PATH = '/data' # このパスはDockerコンテナの信号ファイル・ディレクトリのマウント時に揃える必要があるので注意
 TMP_FILE_NAME = 'tmp.ir'
 
 """
@@ -82,9 +82,10 @@ class Mediator:
         logger.debug('Create new ir. Current ir is {0}'.format(ir))
         id = self.__get_largest_id(ir)
         tmp_file_path = '{0}/{1}'.format(IR_FOLDER_PATH, TMP_FILE_NAME)
-        new_file_path = '{0}/{1}.ir'.format(IR_FOLDER_PATH, id)
+        new_file_name = '{0}.ir'.format(id)
+        new_file_path = '{0}/{1}'.format(IR_FOLDER_PATH, new_file_name)
         timestamp = self.__filesystem.rename_tmp_file(tmp_file_path, new_file_path);
-        signal = {'id': id, 'name': name, 'sleep': sleep, 'filePath': new_file_path, 'fileTimeStamp': timestamp}
+        signal = {'id': id, 'name': name, 'sleep': sleep, 'filePath': new_file_name, 'fileTimeStamp': timestamp}
         if ir == None:
             ir = {'signals': []}
         ir['signals'].append(signal)

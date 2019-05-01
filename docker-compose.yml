@@ -8,19 +8,11 @@ services:
   ir-receiver:
     build:
       context: .
-      dockerfile: Dockerfile
-    volumes:
-      - ./src:/code
-    network_mode: "host"
-    depends_on:
-      - redis
-  neochi-app:
-    build:
-      context: .
       dockerfile: Dockerfile-test
     volumes:
-      - .:/code
+      - ./src:/code/src
+      - ./test:/code/test
+      - ./data:/data
     network_mode: "host"
     depends_on:
       - redis
-      - ir-receiver
