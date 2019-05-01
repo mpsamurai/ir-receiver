@@ -33,7 +33,7 @@ class RedisBoundary:
         delete_ir_signal.subscribe(lambda value, channel: self.__mediator.delete_ir_signal(value))
         # 信号受信の中止処理
         stop_ir_signal = notification.StopIrReceiving(self._r)
-        stop_ir_signal.subscribe(lambda value, channel: self.__mediator.stop_ir_receiving(value))
+        stop_ir_signal.subscribe(lambda value, channel: self.__mediator.stop_ir_receiving())
     
     """
     現在のIr-reciverの状態を取得する
