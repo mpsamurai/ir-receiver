@@ -1,0 +1,9 @@
+FROM mpsamurai/neochi-dev-base:20190424-arm32v6
+
+COPY ./requirements.txt /tmp
+RUN pip --no-cache-dir install -r /tmp/requirements.txt && rm /tmp/requirements.txt
+
+WORKDIR /neochi/ir_receiver
+COPY ./src .
+
+CMD ["python3", "main.py"]

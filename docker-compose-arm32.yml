@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  redis:
+    image: arm32v6/redis:5-alpine
+    ports:
+      - 6379:6379
+  ir-receiver:
+    build: .
+    volumes:
+      - ./src:/code
+    network_mode: "host"
+    depends_on:
+      - redis
+  neochi-app:
+    build: .
+    volumes:
+      - ./tool/neochi-app:/code
+    network_mode: "host"
+    depends_on:
+      - redis
+      - ir-receiver
