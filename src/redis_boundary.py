@@ -27,13 +27,13 @@ class RedisBoundary:
         start_ir_receiving.subscribe(lambda value, channel: self.__mediator.start_ir_receiving())
         # 受信した信号の保存メッセージ待ち受け
         save_ir_signal = notification.SaveIrSignal(self._r)
-        save_ir_signal.subscribe(lambda count, channel: self.__mediator.save_ir_signal(value))
+        save_ir_signal.subscribe(lambda value, channel: self.__mediator.save_ir_signal(value))
         # 信号削除のメッセージ待ち受け
         delete_ir_signal = notification.DeleteIrSignal(self._r)
-        delete_ir_signal.subscribe(lambda count, channel: self.__mediator.delete_ir_signal(value))
+        delete_ir_signal.subscribe(lambda value, channel: self.__mediator.delete_ir_signal(value))
         # 信号受信の中止処理
         stop_ir_signal = notification.StopIrReceiving(self._r)
-        stop_ir_signal.subscribe(lambda count, channel: self.__mediator.stop_ir_receiving(value))
+        stop_ir_signal.subscribe(lambda value, channel: self.__mediator.stop_ir_receiving(value))
     
     """
     現在のIr-reciverの状態を取得する
