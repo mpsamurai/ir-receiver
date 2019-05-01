@@ -28,17 +28,19 @@ class Mediator:
         logger.debug('Received start_ir_receiving')
         self.__redis_boundary.set_state('receiving');
         self.__redis_boundary.publish_started_ir_receiving();
-        self.__respberry_pi.start_capturing_remote_signal(self.__remote_signal_received);
+        self.__respberry_pi.start_capturing_remote_signal(self.remote_signal_received);
         
     """
         ラズパイから信号受信したときのコールバック関数
     """
-    def __remote_signal_received(self, signals):
+    def remote_signal_received(self, signals, cancelled):
         logger.debug('Received remote signal')
+        self.__redis_boundary.set_state('ready');
+        if cancelled:
+            self.__redis_boundary.publish_stopped_ir_saving_stop_message()
         tmp_file_path = '{0}/{1}'.format(IR_FOLDER_PATH, TMP_FILE_NAME)
         self.__filesystem.save_temp_file(tmp_file_path, signals)
         logger.debug('Signals saved to tmp file {0}'.format(tmp_file_path))
-        self.__redis_boundary.set_state('ready');
         self.__redis_boundary.publish_stopped_ir_receiving_valid_signal()
         
     """
@@ -65,6 +67,12 @@ class Mediator:
         ir = self.__redis_boundary.get_ir()
         new_ir = [x for x in ir["signals"] if x["id"] != id]
         self.__redis_boundary.set_ir({'signals': new_ir})
+        
+    """
+        リモコンの信号受信を中止する
+    """
+    def stop_ir_receiving(self):
+        self.__respberry_pi.stop_capturing_remote_signal()
         
     """
         一時ファイルに名前をつけて永続化し、RedisにIRデータを追加して更新する

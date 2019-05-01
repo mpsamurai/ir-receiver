@@ -42,8 +42,7 @@ test_signal_string = '{"ac:cool27": [8970, 4475, 586, 544, 586, 544, 586, 544, 5
 """
 class RespberryPiBoundaryMock():
     def start_capturing_remote_signal(self, callback):
-                callback(test_signal)
-
+        callback(test_signal, False)
 
 class TestMediator(unittest.TestCase):
 
@@ -57,6 +56,7 @@ class TestMediator(unittest.TestCase):
         self.__mediator.start()
 
     """
+    リモコン信号受信の一覧の流れをテスト
     """
     def test_start_ir_receiving(self):
         """
@@ -108,3 +108,9 @@ class TestMediator(unittest.TestCase):
         assert self.__redis_boundary.get_state() == 'ready'
         assert not os.path.exists(new_file_path)
         assert self.__redis_boundary.get_ir() == {'signals': []}
+        
+    """
+    リモコン信号受信中止をテスト
+    """
+    def test_stop_ir_receiving(self):
+        self.__mediator.remote_signal_received([], True)

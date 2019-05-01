@@ -18,6 +18,7 @@ last_tick = 0
 in_code = False
 code = []
 fetching_code = False
+cancelled = False
 logger = logging.getLogger(__name__)
 
 
@@ -191,7 +192,7 @@ class RespberryPiBoundary:
     
     def start_capturing_remote_signal(self, callback):
         logger.debug('Start capturing remote signal')
-        global code, fetching_code
+        global code, fetching_code, cancelled
         
         self.pi = pigpio.pi() # Connect to Pi.
 
@@ -205,16 +206,21 @@ class RespberryPiBoundary:
         logger.debug('Capturing remote signal...')
         code = []
         fetching_code = True
-        while fetching_code:
+        cancelled = False
+        while fetching_code and not cancelled:
            time.sleep(0.1)
-        logger.debug('Capturing remote signal...Done')
+        if cancelled:
+           logger.debug('Capturing remote signal...cancelled')
+        else:
+           logger.debug('Capturing remote signal...Done')
         time.sleep(0.5)
         
         self.pi.set_glitch_filter(GPIO, 0) # Cancel glitch filter.
         self.pi.set_watchdog(GPIO, 0) # Cancel watchdog.
         record = {'0': code}
         self.tidy(record)
-        callback(record)
+        callback(record, cancelled)
         
     def stop_capturing_remote_signal(self):
-        pass
+        global cancelled
+        cancelled = True
