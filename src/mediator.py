@@ -1,6 +1,8 @@
 import logging
 
 logger = logging.getLogger(__name__)
+sh = logging.StreamHandler()
+logger.addHandler(sh)
 IR_FOLDER_PATH = '/data' # このパスはDockerコンテナの信号ファイル・ディレクトリのマウント時に揃える必要があるので注意
 TMP_FILE_NAME = 'tmp.ir'
 
@@ -20,7 +22,13 @@ class Mediator:
         # Redisデータの受付開始
         self.__redis_boundary.subscribe()
         self.__redis_boundary.set_state('ready');
-        
+
+    def stop(self):
+        self.__redis_boundary.unsubscribe()
+
+    def wait_stop_end(self):
+        self.__redis_boundary.waits_subscriptin_end()
+
     """
         ラズパイからリモコン信号のキャプチャを開始する。
     """
@@ -113,3 +121,4 @@ class Mediator:
         if not id_list:
             return 0
         return max(id_list) + 1
+

@@ -20,6 +20,8 @@ code = []
 fetching_code = False
 cancelled = False
 logger = logging.getLogger(__name__)
+sh = logging.StreamHandler()
+logger.addHandler(sh)
 
 
 class RespberryPiBoundary:
