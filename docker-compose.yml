@@ -10,10 +10,9 @@ services:
       context: .
       dockerfile: Dockerfile-raspbian
     volumes:
-      - ./src:/code/src
-      - ./test:/code/test
-      - ./data:/data
+      - ./src:/code
       - ../neochi-core/src/neochi:/code/neochi
+      - ./data:/data
     network_mode: "host"
     depends_on:
       - redis
