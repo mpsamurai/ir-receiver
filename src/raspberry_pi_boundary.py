@@ -225,5 +225,6 @@ class RespberryPiBoundary:
         callback(record, cancelled)
         
     def stop_capturing_remote_signal(self):
+        logger.debug('Stop capturing remote signal')
         global cancelled
         cancelled = True
