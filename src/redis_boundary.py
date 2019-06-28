@@ -66,50 +66,50 @@ class RedisBoundary:
         ir.value = new_ir
 
     def publish_started_ir_receiving(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
+        n = notification.IrReceiverNeochiApp(self._r)
         # 信号の確認機能がまだ無いので今の所indexは0しか存在しない
-        notification.value = {'title': 'started_ir_receiving', 'index': 0}
+        n.value = {'title': 'started_ir_receiving', 'index': 0}
 
     def publish_stopped_ir_receiving_no_signal(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'stopped_ir_receiving_no_signal'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'stopped_ir_receiving_no_signal'}
 
     def publish_stopped_ir_receiving_invalid_signal(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'stopped_ir_receiving_invalid_signal'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'stopped_ir_receiving_invalid_signal'}
 
     def publish_stopped_ir_receiving_valid_signal(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'stopped_ir_receiving_valid_signal'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'stopped_ir_receiving_valid_signal'}
 
     def publish_stopped_ir_receiving_stop_message(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'stopped_ir_receiving_stop_message'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'stopped_ir_receiving_stop_message'}
 
     def publish_stopped_ir_receiving_more_signal(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'stopped_ir_receiving_more_signal'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'stopped_ir_receiving_more_signal'}
 
     def publish_saved_ir_signal(self, ir_signal_id):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'saved_ir_signal', 'id': ir_signal_id}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'saved_ir_signal', 'id': ir_signal_id}
 
     def publish_ir_signal_saving_error(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'ir_signal_saving_error'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'ir_signal_saving_error'}
 
     def publish_discarded_ir_signal(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'discarded_ir_signal'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'discarded_ir_signal'}
 
     def publish_ir_signal_discarding_error(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'ir_signal_discarding_error'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'ir_signal_discarding_error'}
 
     def publish_deleted_ir_signal(self, ir_signal_id):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'deleted_ir_signal', 'id': ir_signal_id}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'deleted_ir_signal', 'id': ir_signal_id}
 
     def publish_ir_signal_deleting_error(self):
-        notification = notification.IrReceiverNeochiApp(self._r)
-        notification.value = {'title': 'ir_signal_deleting_error'}
+        n = notification.IrReceiverNeochiApp(self._r)
+        n.value = {'title': 'ir_signal_deleting_error'}
