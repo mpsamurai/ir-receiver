@@ -138,6 +138,7 @@ class Mediator:
     """
     def __update_current_ir(self, ir_signal_id, name, sleep, updates_file):
         ir = self.__redis_boundary.get_ir()
+        is_signal_updated = False
         for signal in ir['signals']:
             if signal["id"] == ir_signal_id:
                 signal["name"] = name
@@ -149,6 +150,11 @@ class Mediator:
                     timestamp = self.__filesystem.rename_tmp_file(tmp_file_path, new_file_path)
                     signal['filePath'] = new_file_name,
                     signal['fileTimeStamp'] = timestamp
+                is_signal_updated = True
+                logger.debug('__update_current_ir() updated. signal:{0}'.format(signal))
+        if is_signal_updated:
+            self.__redis_boundary.set_ir(ir)
+
 
     """
         今保存されている信号の一番大きいID+1の値を新しいIDとして割り当てる
